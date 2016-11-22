@@ -1,4 +1,4 @@
-package com.jasongj.kafka;
+package com.jasongj.kafka.producer;
 
 import java.util.List;
 import java.util.Map;

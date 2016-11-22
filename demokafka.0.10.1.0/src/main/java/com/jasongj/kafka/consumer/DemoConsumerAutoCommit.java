@@ -1,19 +1,18 @@
-package com.jasongj.kafka;
+package com.jasongj.kafka.consumer;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Properties;
 
-import org.apache.kafka.clients.consumer.ConsumerRebalanceListener;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.TopicPartition;
+import org.apache.kafka.common.serialization.IntegerDeserializer;
+import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-public class DemoConsumerRebalance {
+public class DemoConsumerAutoCommit {
 
 	public static void main(String[] args) {
-		args = new String[] { "kafka0:9092", "topic1", "group1", "consumer1" };
+		args = new String[] { "kafka0:9092", "stream-dsl-sink", "group1", "consumer2" };
 		if (args == null || args.length != 4) {
 			System.err.println(
 					"Usage:\n\tjava -jar kafka_consumer.jar ${bootstrap_server} ${topic_name} ${group_name} ${client_id}");
@@ -31,23 +30,9 @@ public class DemoConsumerRebalance {
 		props.put("enable.auto.commit", "true");
 		props.put("auto.commit.interval.ms", "1000");
 		props.put("key.deserializer", StringDeserializer.class.getName());
-		props.put("value.deserializer", StringDeserializer.class.getName());
+		props.put("value.deserializer", LongDeserializer.class.getName());
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-		consumer.subscribe(Arrays.asList(topic), new ConsumerRebalanceListener(){
-
-			@Override
-			public void onPartitionsRevoked(Collection<TopicPartition> partitions) {
-				partitions.forEach(topicPartition -> {
-					System.out.printf("Revoked partition for client %s : %s-%s %n", clientid, topicPartition.topic(), topicPartition.partition());
-				});
-			}
-
-			@Override
-			public void onPartitionsAssigned(Collection<TopicPartition> partitions) {
-				partitions.forEach(topicPartition -> {
-					System.out.printf("Assigned partition for client %s : %s-%s %n", clientid, topicPartition.topic(), topicPartition.partition());
-				});
-			}});
+		consumer.subscribe(Arrays.asList(topic));
 		while (true) {
 			ConsumerRecords<String, String> records = consumer.poll(100);
 			records.forEach(record -> {

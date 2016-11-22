@@ -1,4 +1,4 @@
-package com.jasongj.kafka;
+package com.jasongj.kafka.consumer;
 
 import java.util.Arrays;
 import java.util.Properties;
