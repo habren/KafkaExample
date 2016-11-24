@@ -9,10 +9,10 @@
 
 	<name>demokafka</name>
 	<url>http://www.jasongj.com</url>
-	
+
 	<modules>
-	<module>demokafka.0.8.2.2</module>
-	<module>demokafka.0.10.1.0</module>
+		<module>demokafka.0.8.2.2</module>
+		<module>demokafka.0.10.1.0</module>
 	</modules>
 
 	<properties>
@@ -68,11 +68,6 @@
 			<version>2.11.5</version>
 		</dependency>
 		<dependency>
-			<groupId>com.101tec</groupId>
-			<artifactId>zkclient</artifactId>
-			<version>0.3</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.zookeeper</groupId>
 			<artifactId>zookeeper</artifactId>
 			<version>3.4.6</version>
@@ -82,8 +77,11 @@
 			<artifactId>snappy-java</artifactId>
 			<version>1.1.1.6</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
