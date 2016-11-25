@@ -1,4 +1,4 @@
-package com.jasongj.kafka.stream;
+package com.jasongj.kafka.stream.serdes;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;

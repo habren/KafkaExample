@@ -13,6 +13,12 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.KTable;
 
+import com.jasongj.kafka.stream.model.Item;
+import com.jasongj.kafka.stream.model.Order;
+import com.jasongj.kafka.stream.model.User;
+import com.jasongj.kafka.stream.serdes.SerdesFactory;
+import com.jasongj.kafka.stream.timeextractor.OrderTimestampExtractor;
+
 public class PurchaseAnalysis {
 
 	public static void main(String[] args) throws IOException, InterruptedException {

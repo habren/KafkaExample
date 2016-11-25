@@ -1,4 +1,4 @@
-package com.jasongj.kafka.stream;
+package com.jasongj.kafka.stream.model;
 
 public class User {
 	private String name;

@@ -1,4 +1,4 @@
-package com.jasongj.kafka.stream;
+package com.jasongj.kafka.stream.serdes;
 
 import java.io.IOException;
 import java.util.Map;

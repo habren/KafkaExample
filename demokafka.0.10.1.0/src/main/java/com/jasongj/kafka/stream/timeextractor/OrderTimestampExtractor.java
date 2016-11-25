@@ -1,4 +1,4 @@
-package com.jasongj.kafka.stream;
+package com.jasongj.kafka.stream.timeextractor;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -7,6 +7,9 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.streams.processor.TimestampExtractor;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.jasongj.kafka.stream.model.Item;
+import com.jasongj.kafka.stream.model.Order;
+import com.jasongj.kafka.stream.model.User;
 
 public class OrderTimestampExtractor implements TimestampExtractor {
 

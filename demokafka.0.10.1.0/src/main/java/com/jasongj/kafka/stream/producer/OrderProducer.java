@@ -1,4 +1,4 @@
-package com.jasongj.kafka.stream;
+package com.jasongj.kafka.stream.producer;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,6 +18,8 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import com.jasongj.kafka.producer.HashPartitioner;
+import com.jasongj.kafka.stream.model.Order;
+import com.jasongj.kafka.stream.serdes.GenericSerializer;
 
 public class OrderProducer {
 	
