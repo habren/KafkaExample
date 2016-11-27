@@ -42,22 +42,14 @@ public class DemoConsumerCommitCallback {
 			records.forEach(record -> {
 				System.out.printf("client : %s , topic: %s , partition: %d , offset = %d, key = %s, value = %s%n",
 						clientid, record.topic(), record.partition(), record.offset(), record.key(), record.value());
-//				if (atomicLong.get() % 10 == 0)
-//					consumer.commitAsync(new OffsetCommitCallback() {
-//
-//						@Override
-//						public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
-//
-//						}
-//					});
 				if (atomicLong.get() % 10 == 0)
 					consumer.commitAsync((Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) -> {
-						offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) -> {
-							System.out.printf("Commit %s-%d-%d %n", partition.topic(), partition.partition(),
-									offset.offset());
-						});
-						if(null != null )
+						offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) -> 
+							System.out.printf("Commit %s-%d-%d %n", partition.topic(), partition.partition(), offset.offset())
+						);
+						if(null != null ) {
 							exception.printStackTrace();
+						}
 					});
 			});
 		}

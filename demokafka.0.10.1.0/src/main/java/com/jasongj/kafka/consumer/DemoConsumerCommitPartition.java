@@ -37,7 +37,6 @@ public class DemoConsumerCommitPartition {
 		props.put("auto.offset.reset", "earliest");
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 		consumer.subscribe(Arrays.asList(topic));
-		AtomicLong atomicLong = new AtomicLong();
 		while (true) {
 			ConsumerRecords<String, String> records = consumer.poll(100);
 			records.partitions().forEach(topicPartition -> {
