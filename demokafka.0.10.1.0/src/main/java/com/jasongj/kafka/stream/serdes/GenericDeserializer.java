@@ -8,6 +8,17 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * This deserializer can deserialize any object of POJO class
+ * 
+ * @author Jason Guo <habren@163.com>
+ *
+ * @param <T>
+ *            POJO class. The class should have a constructor without any
+ *            arguments and have setter and getter for every member variable
+ * 
+ */
+
 public class GenericDeserializer<T> implements Deserializer<T> {
 
 	private Class<T> type;

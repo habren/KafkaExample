@@ -4,9 +4,22 @@ import java.io.IOException;
 import java.util.Map;
 
 import org.apache.kafka.common.errors.SerializationException;
+import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jasongj.kafka.stream.model.User;
+
+/**
+ * This serializer can serialize any object of POJO class
+ * 
+ * @author Jason Guo <habren@163.com>
+ *
+ * @param <T>
+ *            POJO class. The class should have a constructor without any
+ *            arguments and have setter and getter for every member variable
+ * 
+ */
 
 public class GenericSerializer<T> implements Serializer<T> {
 
