@@ -8,7 +8,7 @@ import org.apache.kafka.streams.processor.ProcessorContext;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 
-public class DemoProcessor implements Processor<String, String> {
+public class WordCountProcessor implements Processor<String, String> {
 
 	private ProcessorContext context;
 	private KeyValueStore<String, Integer> kvStore;
@@ -25,7 +25,8 @@ public class DemoProcessor implements Processor<String, String> {
 	public void process(String key, String value) {
 		Stream.of(value.toLowerCase().split(" ")).forEach((String word) -> {
 			Optional<Integer> counts = Optional.ofNullable(kvStore.get(word));
-			kvStore.put(word, counts.map(count -> count + 1).orElse(1));
+			int count = counts.map(wordcount -> wordcount + 1).orElse(1);
+			kvStore.put(word, count);
 		});
 	}
 

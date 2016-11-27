@@ -5,13 +5,14 @@ import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.LongDeserializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class DemoConsumerAutoCommit {
 
 	public static void main(String[] args) {
-		args = new String[] { "kafka0:9092", "stream-dsl-sink", "group1", "consumer2" };
+		args = new String[] { "kafka0:19092", "words", "group1", "consumer2" };
 		if (args == null || args.length != 4) {
 			System.err.println(
 					"Usage:\n\tjava -jar kafka_consumer.jar ${bootstrap_server} ${topic_name} ${group_name} ${client_id}");
@@ -28,8 +29,9 @@ public class DemoConsumerAutoCommit {
 		props.put("client.id", clientid);
 		props.put("enable.auto.commit", "true");
 		props.put("auto.commit.interval.ms", "1000");
+        props.put("auto.offset.reset", "earliest");
 		props.put("key.deserializer", StringDeserializer.class.getName());
-		props.put("value.deserializer", LongDeserializer.class.getName());
+		props.put("value.deserializer", StringDeserializer.class.getName());
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
 		consumer.subscribe(Arrays.asList(topic));
 		while (true) {

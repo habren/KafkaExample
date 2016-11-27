@@ -24,8 +24,8 @@ public class PurchaseAnalysis {
 	public static void main(String[] args) throws IOException, InterruptedException {
 		Properties props = new Properties();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-purchase-analysis2");
-		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka0:9092");
-		props.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "zookeeper0:2181/kafka");
+		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka0:19092");
+		props.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "zookeeper0:12181/kafka");
 		props.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
@@ -35,7 +35,7 @@ public class PurchaseAnalysis {
 		KStream<String, Order> orderStream = streamBuilder.stream(Serdes.String(), SerdesFactory.serdFrom(Order.class), "orders");
 		KTable<String, User> userTable = streamBuilder.table(Serdes.String(), SerdesFactory.serdFrom(User.class), "users", "users-state-store");
 		KTable<String, Item> itemTable = streamBuilder.table(Serdes.String(), SerdesFactory.serdFrom(Item.class), "items", "items-state-store");
-		itemTable.toStream().foreach((String itemName, Item item) -> System.out.printf("Item info %s-%s-%s-%s\n", item.getItemName(), item.getAddress(), item.getType(), item.getPrice()));
+//		itemTable.toStream().foreach((String itemName, Item item) -> System.out.printf("Item info %s-%s-%s-%s\n", item.getItemName(), item.getAddress(), item.getType(), item.getPrice()));
 		KTable<String, Double> kTable = orderStream
 				.leftJoin(userTable, (Order order, User user) -> OrderUser.fromOrderUser(order, user), Serdes.String(), SerdesFactory.serdFrom(Order.class))
 				.filter((String userName, OrderUser orderUser) -> orderUser.userAddress != null)
@@ -47,7 +47,7 @@ public class PurchaseAnalysis {
 				.map((String item, OrderUserItem orderUserItem) -> KeyValue.<String, Double>pair(orderUserItem.gender, (Double)(orderUserItem.quantity * orderUserItem.itemPrice)))
 				.groupByKey(Serdes.String(), Serdes.Double())
 				.reduce((Double v1, Double v2) -> v1 + v2, "gender-amount-state-store");
-		kTable.foreach((str, dou) -> System.out.printf("%s-%s\n", str, dou));
+//		kTable.foreach((str, dou) -> System.out.printf("%s-%s\n", str, dou));
 		kTable
 			.toStream()
 			.map((String gender, Double total) -> new KeyValue<String, String>(gender, String.valueOf(total)))
