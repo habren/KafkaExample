@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.kafka.common.config.ConfigDef;
 import org.apache.kafka.connect.connector.Task;
-import org.apache.kafka.connect.sink.SinkConnector;
+import org.apache.kafka.connect.source.SourceConnector;
 
-public class ConsoleSourceConnect extends SinkConnector {
+public class ConsoleSourceConnect extends SourceConnector {
 
     @Override
     public ConfigDef config() {
@@ -16,12 +16,12 @@ public class ConsoleSourceConnect extends SinkConnector {
 
     @Override
     public void start(Map<String, String> arg0) {
-        
+
     }
 
     @Override
     public void stop() {
-        
+
     }
 
     @Override
@@ -38,6 +38,5 @@ public class ConsoleSourceConnect extends SinkConnector {
     public String version() {
         return null;
     }
-
 
 }
