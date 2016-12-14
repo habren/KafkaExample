@@ -12,7 +12,7 @@ public class ConsoleSourceTask extends SinkTask {
 
     @Override
     public String version() {
-        return null;
+        return new ConsoleSourceConnect().version();
     }
 
     @Override
