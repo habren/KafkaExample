@@ -20,6 +20,7 @@ public class ProducerDemo {
 		props.put("key.serializer", StringSerializer.class.getName());
 		props.put("value.serializer", StringSerializer.class.getName());
 		props.put("partitioner.class", HashPartitioner.class.getName());
+		props.put("interceptor.classes", EvenProducerInterceptor.class.getName());
 
 		Producer<String, String> producer = new KafkaProducer<String, String>(props);
 		for (int i = 0; i < 10; i++)
